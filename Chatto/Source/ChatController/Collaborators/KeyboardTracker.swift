@@ -33,10 +33,10 @@ public enum KeyboardStatus {
 
 public typealias KeyboardHeightBlock = (_ height: CGFloat, _ status: KeyboardStatus) -> Void
 
-class KeyboardTracker {
+public class KeyboardTracker {
     private(set) var keyboardStatus: KeyboardStatus = .hidden
     private let view: UIView
-    var trackingView: UIView {
+    public var trackingView: UIView {
         return self.keyboardTrackerView
     }
     private lazy var keyboardTrackerView: KeyboardTrackingView = {
@@ -56,7 +56,7 @@ class KeyboardTracker {
 
     private var heightBlock: KeyboardHeightBlock
 
-    init(viewController: UIViewController, inputBarContainer: UIView, heightBlock: @escaping KeyboardHeightBlock, notificationCenter: NotificationCenter) {
+    public init(viewController: UIViewController, inputBarContainer: UIView, heightBlock: @escaping KeyboardHeightBlock, notificationCenter: NotificationCenter) {
         self.view = viewController.view
         self.heightBlock = heightBlock
         self.inputBarContainer = inputBarContainer
@@ -97,11 +97,11 @@ class KeyboardTracker {
         self.notificationCenter.removeObserver(self)
     }
 
-    func startTracking() {
+    public func startTracking() {
         self.isTracking = true
     }
 
-    func stopTracking() {
+    public func stopTracking() {
         self.isTracking = false
     }
 
@@ -165,7 +165,7 @@ class KeyboardTracker {
         return max(0, self.view.bounds.height - trackingViewRect.maxY)
     }
 
-    func adjustTrackingViewSizeIfNeeded() {
+    public func adjustTrackingViewSizeIfNeeded() {
         guard self.isTracking && self.keyboardStatus == .shown else { return }
         self.adjustTrackingViewSize()
     }
